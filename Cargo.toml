@@ -1,0 +1,29 @@
+[package]
+name = "axum-alpinejs-starter"
+version = "0.1.0"
+edition = "2024"
+authors = ["Richard Leek <richard@richardleek.com>"]
+license = "MIT"
+
+[profile.release]
+panic = 'abort'
+
+[target.'cfg(target_env = "musl")'.dependencies]
+mimalloc = "0.1.48"
+
+[dependencies]
+askama = "0.15"
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = [
+    "trace",
+    "compression-gzip",
+    "timeout",
+    "fs",
+] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+anyhow = "1"
+thiserror = "2"
