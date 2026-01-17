@@ -32,12 +32,9 @@ impl IntoResponse for AppError {
 
         tracing::error!(error = %self);
 
-        let html = ErrorPageView {
-            status: status.as_u16(),
-            message,
-        }
-        .render()
-        .unwrap_or_else(|_| "<h1>Internal Server Error</h1>".into());
+        let html = ErrorPageView::new(status.as_u16(), message)
+            .render()
+            .unwrap_or_else(|_| "<h1>Internal Server Error</h1>".into());
 
         (status, Html(html)).into_response()
     }

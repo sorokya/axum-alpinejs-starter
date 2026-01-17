@@ -5,4 +5,15 @@ use askama::Template;
 pub struct ErrorPageView {
     pub status: u16,
     pub message: String,
+    title: Option<&'static str>,
+}
+
+impl ErrorPageView {
+    pub fn new(status: u16, message: String) -> Self {
+        Self {
+            status,
+            message,
+            title: Some("Error"),
+        }
+    }
 }
