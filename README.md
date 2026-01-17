@@ -7,9 +7,12 @@ This is an opinionated starter project that combines the power of [Axum](https:/
 ## Features
 
 - [Axum](https://github.com/tokio-rs/axum) for building the backend server
-- [Alpine.js](https://alpinejs.dev/) (with [Alpine-Ajax](https://alpine-ajax.js.org/)) for lightweight frontend interactivity
+- [Askama](https://askama.readthedocs.io/en/stable/) for server-side HTML templating
+- [Alpine.js](https://alpinejs.dev/) (with [Alpine-Ajax](https://alpine-ajax.js.org/)) for lightweight frontend progressive enhancement
 - [Biome](https://biomejs.dev/) for code formatting and linting
 - [Modern Normalize](https://github.com/sindresorhus/modern-normalize) for CSS normalization
+- [esbuild](https://esbuild.github.io/) for fast JavaScript and CSS bundling
+  - You could drop all of the front end tooling and just use plain HTML/CSS/JS if you prefer
 
 ## Pre-requisites
 
@@ -54,16 +57,18 @@ To get started with this project, follow these steps:
 
 ## Project Structure
 
-- `src/`: Contains the Rust source code for the Axum server.
-  - `main.rs`: Entry point of the application.
-  - `app.rs`: Application setup and route definitions.
-  - `error.rs`: Application error enum (implements axum::response::IntoResponse).
-  - `render.rs`: Template rendering helper.
-  - `routes/`: Route handlers
-  - `views/`: Askama template structures
-- `assets/`: Contains static assets like CSS and JavaScript files.
-- `biome.json`: Configuration file for Biome code formatter and linter.
-
+```bash
+src
+├── app.rs # Application setup and route definitions
+├── error.rs # Application error enum (implements axum::response::IntoResponse)
+├── main.rs # Entry point of the application
+├── render.rs # Template rendering helper
+├── routes # Route handlers
+└── views # Askama template structures
+templates # Askama template markup files
+public # Compiled static assets + anything else to be served statically
+assets # JS/CSS source files (compiled with esbuild)
+```
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
