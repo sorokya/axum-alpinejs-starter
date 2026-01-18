@@ -8,11 +8,11 @@
     <button type="submit">{% if js %}Disable{% else %}Enable{% endif %} JavaScript</button>
 </form>
 
-{% for error in errors %}
 <div id="error-messages">
+    {% for error in errors %}
     <div class="error">{{ error }}</div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 {{ todos | safe }}
 
