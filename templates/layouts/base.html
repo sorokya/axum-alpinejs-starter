@@ -12,6 +12,21 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+
+    <footer>
+        <p>
+            Powered by: <a href="https://www.rust-lang.org/" target="_blank" rel="noopener">Rust</a>,
+            <a href="https://github.com/tokio-rs/axum" target="_blank" rel="noopener">Axum</a>,
+            <a href="https://askama.readthedocs.io/en/stable/" target="_blank" rel="noopener">Askama</a>,
+            <a href="https://alpinejs.dev/" target="_blank" rel="noopener">Alpine.js</a>,
+            and
+            <a href="https://alpine-ajax.js.org/" target="_blank" rel="noopener">Alpine AJAX</a>
+        </p>
+        <p>
+            <a href="https://github.com/sorokya/axum-alpinejs-starter" target="_blank" rel="noopener">Source Code</a>
+        </p>
+    </footer>
+
     {% if js %}
     <script type="text/javascript" src="/index.js"></script>
     {% endif %}

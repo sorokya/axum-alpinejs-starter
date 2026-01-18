@@ -1,6 +1,7 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<h1>{{ status }}</h1>
-<p>{{ message }}</p>
+<h1 id="page-title">{{ status }}</h1>
+<div class="error">{{ message }}</div>
+<a href="/" style="color: var(--muted); text-align: center; width: 100%; display: block;">Return to Home</a>
 {% endblock %}

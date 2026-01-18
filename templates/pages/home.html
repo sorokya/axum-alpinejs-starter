@@ -1,7 +1,12 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<h1 id="page-title">TODO</h1>
+
+{% for error in errors %}
+<div class="error">{{ error }}</div>
+{% endfor %}
+
+<h1 id="page-title">Axum + Alpine Demo</h1>
 
 <form id="js-toggle-form" method="post" action="/toggle-js">
     <button type="submit">{% if js %}Disable{% else %}Enable{% endif %} JavaScript</button>

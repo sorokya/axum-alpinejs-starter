@@ -1,4 +1,8 @@
-use axum::{extract::State, response::Html};
+use axum::{
+    extract::State,
+    response::{Html, Redirect},
+};
+use axum_messages::{Level, Messages};
 use tokio::sync::oneshot;
 use tower_sessions::Session;
 
@@ -15,6 +19,7 @@ pub struct AddTodoRequest {
 }
 
 pub async fn index(
+    messages: Messages,
     State(state): State<AppState>,
     session: Session,
 ) -> Result<Html<String>, AppError> {
@@ -34,13 +39,24 @@ pub async fn index(
     let js_enabled = session
         .get::<bool>("js_enabled")
         .await
-        .unwrap_or(Some(false))
-        .unwrap_or(false);
+        .unwrap_or(Some(true))
+        .unwrap_or(true);
 
-    render(HomePageView::new(items, js_enabled))
+    let errors = messages
+        .into_iter()
+        .filter_map(|msg| {
+            if msg.level == Level::Error {
+                Some(msg.message)
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+
+    render(HomePageView::new(items, js_enabled, errors))
 }
 
-pub async fn toggle_js(session: Session) -> Result<axum::response::Redirect, AppError> {
+pub async fn toggle_js(session: Session) -> Result<Redirect, AppError> {
     let js_enabled = session
         .get::<bool>("js_enabled")
         .await
@@ -55,13 +71,19 @@ pub async fn toggle_js(session: Session) -> Result<axum::response::Redirect, App
             AppError::Internal(anyhow::anyhow!("Failed to process request"))
         })?;
 
-    Ok(axum::response::Redirect::to("/"))
+    Ok(Redirect::to("/"))
 }
 
 pub async fn add_todo(
+    messages: Messages,
     State(state): State<AppState>,
     axum::extract::Form(AddTodoRequest { description }): axum::extract::Form<AddTodoRequest>,
-) -> Result<axum::response::Redirect, AppError> {
+) -> Result<Redirect, AppError> {
+    if description.trim().is_empty() {
+        messages.error("Description can not be blank");
+        return Ok(Redirect::to("/"));
+    }
+
     if let Err(e) = state.todo_sender.send(TodoCommand::Add(description)) {
         tracing::error!("Failed to send Add command: {}", e);
         return Err(AppError::Internal(anyhow::anyhow!(
@@ -69,13 +91,13 @@ pub async fn add_todo(
         )));
     }
 
-    Ok(axum::response::Redirect::to("/"))
+    Ok(Redirect::to("/"))
 }
 
 pub async fn toggle_todo(
     State(state): State<AppState>,
     axum::extract::Path(id): axum::extract::Path<usize>,
-) -> Result<axum::response::Redirect, AppError> {
+) -> Result<Redirect, AppError> {
     if let Err(e) = state.todo_sender.send(TodoCommand::Toggle(id)) {
         tracing::error!("Failed to send Toggle command: {}", e);
         return Err(AppError::Internal(anyhow::anyhow!(
@@ -83,12 +105,10 @@ pub async fn toggle_todo(
         )));
     }
 
-    Ok(axum::response::Redirect::to("/"))
+    Ok(Redirect::to("/"))
 }
 
-pub async fn clear_done(
-    State(state): State<AppState>,
-) -> Result<axum::response::Redirect, AppError> {
+pub async fn clear_done(State(state): State<AppState>) -> Result<Redirect, AppError> {
     let (tx, rx) = oneshot::channel();
     if let Err(e) = state.todo_sender.send(TodoCommand::List { responder: tx }) {
         tracing::error!("Failed to send List command: {}", e);
@@ -111,5 +131,5 @@ pub async fn clear_done(
         }
     }
 
-    Ok(axum::response::Redirect::to("/"))
+    Ok(Redirect::to("/"))
 }

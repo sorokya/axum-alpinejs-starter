@@ -1,3 +1,4 @@
+use axum_messages::MessagesManagerLayer;
 use time::Duration;
 
 use crate::{error::AppError, routes};
@@ -45,6 +46,7 @@ pub fn build() -> Router {
                     Duration::seconds(10).unsigned_abs(),
                 )),
         )
+        .layer(MessagesManagerLayer)
         .layer(session_layer)
         .with_state(state)
 }

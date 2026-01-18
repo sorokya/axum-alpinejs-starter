@@ -179,3 +179,25 @@ form {
   border-color: var(--muted);
   color: var(--muted);
 }
+
+.error {
+  max-width: 480px;
+  margin: 1rem auto;
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+footer a {
+  color: var(--muted);
+}

@@ -30,3 +30,4 @@ thiserror = "2"
 serde = { version = "1.0", features = ["derive"] }
 tower-sessions = "0.14.0"
 time = "0.3"
+axum-messages = "0.8.0"
