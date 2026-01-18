@@ -7,12 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": [
-      "assets/**/*.js",
-      "assets/**/*.css",
-      "templates/**/*.html",
-      "**/*.json"
-    ]
+    "includes": ["assets/**/*.js", "assets/**/*.css", "**/*.json"]
   },
   "formatter": {
     "enabled": true,
@@ -30,11 +25,6 @@
       "quoteStyle": "single",
       "trailingCommas": "all",
       "arrowParentheses": "always"
-    }
-  },
-  "html": {
-    "parser": {
-      "interpolation": true
     }
   },
   "assist": {

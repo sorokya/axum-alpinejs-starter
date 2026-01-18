@@ -1,6 +1,12 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<h1>Welcome to the Home Page</h1>
-<p>This is the main content of the home page.</p>
+<h1 id="page-title">TODO</h1>
+
+<form id="js-toggle-form" method="post" action="/toggle-js">
+    <button type="submit">{% if js %}Disable{% else %}Enable{% endif %} JavaScript</button>
+</form>
+
+{{ todos | safe }}
+
 {% endblock %}

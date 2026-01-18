@@ -6,6 +6,7 @@ pub struct ErrorPageView {
     pub status: u16,
     pub message: String,
     title: Option<&'static str>,
+    js: bool,
 }
 
 impl ErrorPageView {
@@ -14,6 +15,7 @@ impl ErrorPageView {
             status,
             message,
             title: Some("Error"),
+            js: false,
         }
     }
 }

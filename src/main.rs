@@ -32,7 +32,7 @@ async fn main() {
         let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
 
         // ---- build app ----
-        let app = app::build();
+        let app = app::build().into_make_service();
 
         // ---- run server ----
         tracing::info!("listening on {}", addr);

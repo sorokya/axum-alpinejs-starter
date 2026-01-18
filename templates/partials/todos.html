@@ -1,0 +1,21 @@
+<div id="todo-container">
+    <form id="add-todo-form" method="post" action="/todos">
+        <input type="text" name="description" placeholder="New todo" required autofocus>
+        <button type="submit">Add</button>
+    </form>
+
+    <form id="clear-todos-form" method="post" action="/todos/clear-done">
+        <button type="submit">Clear Completed</button>
+    </form>
+
+    <ul id="todo-list">
+        {% for todo in todos %}
+        <li id="todo-{{ todo.id }}" {% if todo.completed %} class="completed" {% endif %}>
+            <span class="description">{{ todo.description }}</span>
+            <form method="post" action="/todos/{{ todo.id }}/toggle">
+                <button type="submit">{% if todo.completed %}Undo{% else %}Complete{% endif %}</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
