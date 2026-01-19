@@ -120,13 +120,13 @@ form {
 
 /* ---------- Todo List ---------- */
 
-#todo-list {
+#todos-inner {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-#todo-list li {
+#todos-inner li {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -135,31 +135,31 @@ form {
   border-bottom: 1px solid var(--border);
 }
 
-#todo-list li:last-child {
+#todos-inner li:last-child {
   border-bottom: none;
 }
 
 /* Description */
 
-#todo-list .description {
+#todos-inner .description {
   flex: 1;
   word-break: break-word;
 }
 
 /* Completed state */
 
-#todo-list li.completed .description {
+#todos-inner li.completed .description {
   text-decoration: line-through;
   color: var(--muted);
 }
 
 /* Toggle button */
 
-#todo-list form {
+#todos-inner form {
   display: inline;
 }
 
-#todo-list button {
+#todos-inner button {
   background: none;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -168,14 +168,14 @@ form {
   color: var(--muted);
 }
 
-#todo-list button:hover {
+#todos-inner button:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
 
 /* Completed toggle styling */
 
-#todo-list li.completed button {
+#todos-inner li.completed button {
   border-color: var(--muted);
   color: var(--muted);
 }

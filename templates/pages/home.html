@@ -8,12 +8,21 @@
     <button type="submit">{% if js %}Disable{% else %}Enable{% endif %} JavaScript</button>
 </form>
 
-<div id="error-messages">
-    {% for error in errors %}
-    <div class="error">{{ error }}</div>
-    {% endfor %}
-</div>
+{{ errors | safe }}
 
-{{ todos | safe }}
+
+<div id="todo-container">
+    <form id="add-todo-form" method="post" action="/todos" x-target="todos-inner" x-data="{description: ''}"
+        @ajax:after="description = ''">
+        <input type="text" name="description" placeholder="New todo" required autofocus x-model="description">
+        <button type="submit">Add</button>
+    </form>
+
+    <form id="clear-todos-form" method="post" action="/todos/clear-done" x-target="todos-outer">
+        <button type="submit">Clear Completed</button>
+    </form>
+
+    {{ todos | safe }}
+</div>
 
 {% endblock %}

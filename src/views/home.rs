@@ -1,14 +1,17 @@
 use askama::Template;
 
-use crate::{app::TodoItem, views::todos::TodosView};
+use crate::{
+    app::TodoItem,
+    views::{errors::ErrorsView, todos::TodosOuterView},
+};
 
 #[derive(Template)]
 #[template(path = "pages/home.html")]
 pub struct HomePageView {
     pub title: Option<&'static str>,
     js: bool,
-    todos: TodosView,
-    errors: Vec<String>,
+    todos: TodosOuterView,
+    errors: ErrorsView,
 }
 
 impl HomePageView {
@@ -16,8 +19,8 @@ impl HomePageView {
         Self {
             title: Some("Home"),
             js,
-            todos: TodosView::new(todos),
-            errors,
+            todos: TodosOuterView::new(todos),
+            errors: ErrorsView::new(errors),
         }
     }
 }

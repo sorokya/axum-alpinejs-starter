@@ -1,0 +1,5 @@
+<ul id="todos-inner" x-merge="append">
+    {% for todo in todos %}
+    {{ todo | safe }}
+    {% endfor %}
+</ul>

@@ -9,6 +9,9 @@ pub enum AppError {
     #[error("Not Found")]
     NotFound,
 
+    #[error("Bad Request")]
+    BadRequest(String),
+
     #[error("Template Rendering Error")]
     Template(#[from] askama::Error),
 
@@ -28,6 +31,7 @@ impl IntoResponse for AppError {
                 axum::http::StatusCode::INTERNAL_SERVER_ERROR,
                 "Internal Server Error".to_string(),
             ),
+            AppError::BadRequest(message) => (axum::http::StatusCode::BAD_REQUEST, message.clone()),
         };
 
         tracing::error!(error = %self);
@@ -37,5 +41,16 @@ impl IntoResponse for AppError {
             .unwrap_or_else(|_| "<h1>Internal Server Error</h1>".into());
 
         (status, Html(html)).into_response()
+    }
+}
+
+impl AppError {
+    pub fn get_message(&self) -> String {
+        match self {
+            AppError::NotFound => "Not Found".to_string(),
+            AppError::BadRequest(msg) => format!("Bad Request: {}", msg),
+            AppError::Template(err) => format!("Template Error: {}", err),
+            AppError::Internal(err) => format!("Internal Server Error: {}", err),
+        }
     }
 }

@@ -65,9 +65,15 @@ pub struct TodoItem {
 
 #[derive(Debug)]
 pub enum TodoCommand {
-    Add(String),
+    Add {
+        description: String,
+        responder: oneshot::Sender<TodoItem>,
+    },
     Remove(usize),
-    Toggle(usize),
+    Toggle {
+        id: usize,
+        responder: oneshot::Sender<Option<TodoItem>>,
+    },
     List {
         responder: oneshot::Sender<Vec<TodoItem>>,
     },
@@ -106,18 +112,25 @@ impl TodoService {
 
     pub async fn handle_command(&mut self, command: TodoCommand) {
         match command {
-            TodoCommand::Add(description) => {
+            TodoCommand::Add {
+                description,
+                responder,
+            } => {
                 let item = TodoItem {
                     id: self.next_id,
                     description,
                     completed: false,
                 };
-                self.items.push(item);
+                self.items.push(item.clone());
                 self.next_id += 1;
+                let _ = responder.send(item);
             }
-            TodoCommand::Toggle(id) => {
+            TodoCommand::Toggle { id, responder } => {
                 if let Some(item) = self.items.iter_mut().find(|item| item.id == id) {
                     item.completed = !item.completed;
+                    let _ = responder.send(Some(item.clone()));
+                } else {
+                    let _ = responder.send(None);
                 }
             }
             TodoCommand::Remove(id) => {

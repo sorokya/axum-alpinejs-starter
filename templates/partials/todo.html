@@ -1,0 +1,6 @@
+<li id="todo-{{ todo.id }}" {% if todo.completed %} class="completed" {% endif %}>
+    <span class="description">{{ todo.description }}</span>
+    <form method="post" action="/todos/{{ todo.id }}/toggle" x-target="todo-{{ todo.id }}">
+        <button type="submit">{% if todo.completed %}Undo{% else %}Complete{% endif %}</button>
+    </form>
+</li>
