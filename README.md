@@ -4,6 +4,8 @@
 
 This is an opinionated starter project that combines the power of [Axum](https://github.com/tokio-rs/axum), [Alpine.js](https://alpinejs.dev/), and [Alpine-Ajax](https://alpine-ajax.js.org/) to create a simple web application with a Rust backend and a lightweight frontend.
 
+![Demo Gif](https://raw.githubusercontent.com/sorokya/axum-alpinejs-starter/refs/heads/master/screenshots/axum-alpine-demo.gif)
+
 ## Features
 
 - [Axum](https://github.com/tokio-rs/axum) for building the backend server
