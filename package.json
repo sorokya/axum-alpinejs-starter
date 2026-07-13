@@ -11,15 +11,15 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@11.12.0+sha512.820a6fbd0d9f04c226638002aead1e45340a9139dd5dc077c1d83ef44aa2481c8eb6637b4c9aa696a3c7e35ba818e49cf27213e5f2b91138d09b7a3e26e898ba",
   "devDependencies": {
-    "@biomejs/biome": "^2.3.11",
-    "esbuild": "^0.27.2",
-    "lefthook": "^2.0.15"
+    "@biomejs/biome": "^2.5.3",
+    "esbuild": "^0.28.1",
+    "lefthook": "^2.1.10"
   },
   "dependencies": {
-    "@imacrayon/alpine-ajax": "^0.12.6",
-    "alpinejs": "^3.15.4",
+    "@imacrayon/alpine-ajax": "^0.12.7",
+    "alpinejs": "^3.15.12",
     "modern-normalize": "^3.0.1"
   }
 }

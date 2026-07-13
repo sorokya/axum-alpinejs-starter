@@ -12,11 +12,11 @@ panic = 'abort'
 mimalloc = "0.1.48"
 
 [dependencies]
-askama = "0.15"
+askama = "0.16"
 axum = { version = "0.8", features = ["macros"] }
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal"] }
 tower = "0.5"
-tower-http = { version = "0.6", features = [
+tower-http = { version = "0.7", features = [
     "trace",
     "compression-gzip",
     "timeout",
@@ -28,6 +28,6 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 anyhow = "1"
 thiserror = "2"
 serde = { version = "1.0", features = ["derive"] }
-tower-sessions = "0.14.0"
+tower-sessions = "0.15"
 time = "0.3"
-axum-messages = "0.8.0"
+axum-messages = { git = "https://github.com/haruska/axum-messages.git", branch = "tower-sessions-update" }
